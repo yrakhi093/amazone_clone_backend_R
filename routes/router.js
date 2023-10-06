@@ -98,7 +98,7 @@ router.post("/login", async(req,res)=>{
             res.status(500).json("email does not exist")
         }
     } catch (error) {
-        
+        res.status(500).json(error.message)
     }
 
 

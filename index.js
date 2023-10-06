@@ -10,7 +10,7 @@ require("./connection/db");
 require("./DefaultData");
 
 const app = express();
-const port = process.env.PORT || 8004;
+const port = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use(cookie(""))
