@@ -82,7 +82,7 @@ router.post("/login", async(req,res)=>{
             const matchpw = await bcrypt.compare(password, user.password);
               //generate token
             const token = await user.generateAuthtoken();
-            console.log(token)
+            
 
             res.cookie("amazonck", token , {
                 expires: new Date(Date.now() + 2589000),
@@ -93,8 +93,9 @@ router.post("/login", async(req,res)=>{
             } else {
               
                 // console.log(token)
-                res.status(200).json(user)
-                console.log(user)
+                res.status(200).json(user, token)
+                // console.log(user)
+                console.log(token)
             }
         } else {
             res.status(500).json("email does not exist")
