@@ -66,6 +66,46 @@ router.post("/register", async(req,res)=>{
   }
 });
 
+// // login api for user
+
+// router.post("/login", async(req,res)=>{
+
+//     const {email, password}= req.body;
+
+//     if(!email || ! password){
+//         res.status(500).json("Please enter both the details")
+//     }
+
+//     try {
+//         const user =await Users.findOne({email:email});
+//         if (user) {
+//             const matchpw = await bcrypt.compare(password, user.password);
+//               //generate token
+//             const token = await user.generateAuthtoken();
+            
+
+//             res.cookie("amazonck", token , {
+//                 expires: new Date(Date.now() + 2589000),
+//                 httpOnly: true
+//             })
+//             if (!matchpw) {
+//                 res.status(500).json("wrong password")
+//             } else {
+              
+//                 // console.log(token)
+//                 res.status(200).json(user, token)
+//                 // console.log(user)
+//                 console.log(token)
+//             }
+//         } else {
+//             res.status(500).json("email does not exist")
+//         }
+//     } catch (error) {
+//         res.status(500).json(error.message)
+//         console.log(error.message)
+//     }
+
+// })
 // login api for user
 
 router.post("/login", async(req,res)=>{
@@ -81,21 +121,18 @@ router.post("/login", async(req,res)=>{
         if (user) {
             const matchpw = await bcrypt.compare(password, user.password);
               //generate token
-            const token = await user.generateAuthtoken();
+            // const token = await user.generateAuthtoken();
             
 
-            res.cookie("amazonck", token , {
-                expires: new Date(Date.now() + 2589000),
-                httpOnly: true
-            })
+            // res.cookie("amazonck", token , {
+            //     expires: new Date(Date.now() + 2589000),
+            //     httpOnly: true
+            // })
             if (!matchpw) {
                 res.status(500).json("wrong password")
             } else {
-              
+                res.status(200).json(user)
                 // console.log(token)
-                res.status(200).json(user, token)
-                // console.log(user)
-                console.log(token)
             }
         } else {
             res.status(500).json("email does not exist")
@@ -104,8 +141,6 @@ router.post("/login", async(req,res)=>{
         res.status(500).json(error.message)
         console.log(error.message)
     }
-
-
 
 })
 
