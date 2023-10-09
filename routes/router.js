@@ -110,36 +110,18 @@ router.post("/register", async(req,res)=>{
 
 router.post("/login", async(req,res)=>{
 
-    const {email, password}= req.body;
+    const {email}= req.body;
 
-    if(!email || ! password){
-        res.status(500).json("Please enter both the details")
-    }
+    
 
     try {
         const user =await Users.findOne({email:email});
-        if (user) {
-            const matchpw = await bcrypt.compare(password, user.password);
-              //generate token
-            // const token = await user.generateAuthtoken();
-            
-
-            // res.cookie("amazonck", token , {
-            //     expires: new Date(Date.now() + 2589000),
-            //     httpOnly: true
-            // })
-            if (!matchpw) {
-                res.status(500).json("wrong password")
-            } else {
-                res.status(200).json(user)
-                // console.log(token)
-            }
-        } else {
-            res.status(500).json("email does not exist")
-        }
+        res.status(200).json(user)
+ 
+        
     } catch (error) {
         res.status(500).json(error.message)
-        console.log(error.message)
+        
     }
 
 })
