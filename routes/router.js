@@ -93,9 +93,9 @@ router.post("/login", async(req,res)=>{
             } else {
               
                 // console.log(token)
-                res.status(200).json(user, token)
+                res.status(200).json(user)
                 // console.log(user)
-                console.log(token)
+                // console.log(token)
             }
         } else {
             res.status(500).json("email does not exist")
