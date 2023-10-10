@@ -77,7 +77,7 @@ router.post("/login", async(req,res)=>{
     }
 
     try {
-        const user =await Users.findOne({email:email});
+        const user =await Users.find({email:email});
         if (user) {
             const matchpw = await bcrypt.compare(password, user.password);
               //generate token
