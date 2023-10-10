@@ -66,65 +66,65 @@ router.post("/register", async(req,res)=>{
   }
 });
 
-// // login api for user
-
-// router.post("/login", async(req,res)=>{
-
-//     const {email, password}= req.body;
-
-//     if(!email || ! password){
-//         res.status(500).json("Please enter both the details")
-//     }
-
-//     try {
-//         const user =await Users.findOne({email:email});
-//         if (user) {
-//             const matchpw = await bcrypt.compare(password, user.password);
-//               //generate token
-//             const token = await user.generateAuthtoken();
-            
-
-//             res.cookie("amazonck", token , {
-//                 expires: new Date(Date.now() + 2589000),
-//                 httpOnly: true
-//             })
-//             if (!matchpw) {
-//                 res.status(500).json("wrong password")
-//             } else {
-              
-//                 // console.log(token)
-//                 res.status(200).json(user, token)
-//                 // console.log(user)
-//                 console.log(token)
-//             }
-//         } else {
-//             res.status(500).json("email does not exist")
-//         }
-//     } catch (error) {
-//         res.status(500).json(error.message)
-//         console.log(error.message)
-//     }
-
-// })
 // login api for user
 
 router.post("/login", async(req,res)=>{
 
-    const {email}= req.body;
+    const {email, password}= req.body;
 
-    
+    if(!email || ! password){
+        res.status(500).json("Please enter both the details")
+    }
 
     try {
         const user =await Users.findOne({email:email});
-        res.status(200).json(user)
- 
-        
+        if (user) {
+            const matchpw = await bcrypt.compare(password, user.password);
+              //generate token
+            const token = await user.generateAuthtoken();
+            
+
+            res.cookie("amazonck", token , {
+                expires: new Date(Date.now() + 2589000),
+                httpOnly: true
+            })
+            if (!matchpw) {
+                res.status(500).json("wrong password")
+            } else {
+              
+                // console.log(token)
+                res.status(200).json(user, token)
+                // console.log(user)
+                console.log(token)
+            }
+        } else {
+            res.status(500).json("email does not exist")
+        }
     } catch (error) {
         res.status(500).json(error.message)
-        
+        console.log(error.message)
     }
 
 })
+// login api for user
+
+// router.post("/login", async(req,res)=>{
+
+//     const {email}= req.body;
+
+    
+
+//     try {
+//         const user =await Users.findOne({email:email});
+//         res.status(200).json(user)
+ 
+        
+//     } catch (error) {
+//         res.status(500).json(error.message)
+        
+//     }
+
+// })
 
 //Delete all user Data in database
 router.delete("/deleteall", async(req,res)=>{
