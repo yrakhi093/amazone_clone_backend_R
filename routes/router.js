@@ -88,6 +88,8 @@ router.post("/login", async(req,res)=>{
                 expires: new Date(Date.now() + 2589000),
                 httpOnly: true
             })
+
+
             if (!matchpw) {
                 res.status(500).json("wrong password")
             } else {
@@ -102,29 +104,11 @@ router.post("/login", async(req,res)=>{
         }
     } catch (error) {
         res.status(500).json(error.message)
-        console.log(error.message)
+        // console.log(error.message)
     }
 
 })
-// login api for user
 
-// router.post("/login", async(req,res)=>{
-
-//     const {email}= req.body;
-
-    
-
-//     try {
-//         const user =await Users.findOne({email:email});
-//         res.status(200).json(user)
- 
-        
-//     } catch (error) {
-//         res.status(500).json(error.message)
-        
-//     }
-
-// })
 
 //Delete all user Data in database
 router.delete("/deleteall", async(req,res)=>{
@@ -142,17 +126,17 @@ router.post("/addcart/:id", authenticate, async(req,res)=>{
     try {
         const {id} = req.params;
         const cart = await Products.findOne({id:id});
-        console.log(cart + "cart value")
+        // console.log(cart + "cart value")
 
         const useriddetail = await Users.findOne({_id:req.userid});
 
-        console.log(useriddetail);
+        // console.log(useriddetail);
 
         if (useriddetail) {
 
             const cartData = await useriddetail.addcartdata(cart);
             await useriddetail.save();
-            console.log(cartData)
+            // console.log(cartData)
             res.status(201).json(useriddetail)
             
         } else {
@@ -199,7 +183,7 @@ router.delete("/remove/:id",authenticate, async(req, res)=>{
         })
         req.user.save();
         res.status(200).json(req.user )
-        console.log("user removed")
+        // console.log("product removed")
         
         
     } catch (error) {

@@ -8,11 +8,11 @@ const authenticate = async(req,res, next)=>{
 
         const verifytoken = jwt.verify(token, secretkey);
 
-        console.log("this is user id only of the particuler user whom we want to add in the cart" ,verifytoken);
+        // console.log("this is user id only of the particuler user whom we want to add in the cart" ,verifytoken);
 
         const rootUser = await User.findOne({_id:verifytoken._id, "tokens.token":token});
 
-        console.log("this is complete user details on the condition that id of this particuler user is equal to user in databases",rootUser);
+        // console.log("this is complete user details on the condition that id of this particuler user is equal to user in databases",rootUser);
 
         if(!rootUser){throw new Error ("user not found")}
 
