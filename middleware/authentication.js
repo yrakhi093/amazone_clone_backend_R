@@ -4,11 +4,13 @@ const secretkey = process.env.KEY;
 
 const authenticate = async(req,res, next)=>{
     try {
-        const token = req.cookies.amazonck;
+        const token = req.cookies.eccomerce;
+        // console.log(token)
 
         const verifytoken = jwt.verify(token, secretkey);
 
-        // console.log("this is user id only of the particuler user whom we want to add in the cart" ,verifytoken);
+
+        // console.log( verifytoken);
 
         const rootUser = await User.findOne({_id:verifytoken._id, "tokens.token":token});
 
@@ -22,8 +24,9 @@ const authenticate = async(req,res, next)=>{
         next();
         
     } catch (error) {
-        res.status(500).send("unautherized: no token given");
+        res.status(500).send(error.message);
         console.log(error.message)
+        // console.log("token did not send")
     }
 }
 

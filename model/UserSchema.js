@@ -89,8 +89,10 @@ userSchema.methods.generateAuthtoken = async function(){
         this.tokens = this.tokens.concat({token:tokenvalue});
         await this.save();
         return tokenvalue
+       
     } catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
+        console.log("token is not recieved")
     }
 }
 

@@ -3,7 +3,7 @@ const express = require("express");
 const DefaultData = require("./DefaultData");
 const cors = require("cors");
 const router = require("./routes/router");
-const cookie = require("cookie-parser")
+const cookieParser = require("cookie-parser")
 
 
 require("./connection/db");
@@ -13,7 +13,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(express.json());
-app.use(cookie(""))
+app.use(cookieParser(""))
 app.use(cors());
 app.use(router);
 
