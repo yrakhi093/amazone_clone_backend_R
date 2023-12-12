@@ -44,11 +44,9 @@ router.post("/register", async (req, res) => {
     if (preuser) {
       res.status(422).json({ error: "User already present in our database" });
     } else if (password !== cpassword) {
-      res
-        .status(422)
-        .json({
-          error: "Paaword is not matching, Please enter the same password",
-        });
+      res.status(422).json({
+        error: "Paaword is not matching, Please enter the same password",
+      });
     } else {
       const finalUser = new Users({
         fname,
@@ -82,23 +80,23 @@ router.post("/login", async (req, res) => {
 
   try {
     const user = await Users.findOne({ email: email });
-    //  const tk = req.cookies.eccomerce;
     if (user) {
       const matchpw = await bcrypt.compare(password, user.password);
-      //generate token
-      const token = await user.generateAuthtoken();
-
-      res.cookie("eccomerce", token, {
-        expires: new Date(Date.now() + 2589000),
-        httpOnly: true
-      //   secure: true, // Set to true if served over HTTPS
-      //   sameSite: "strict",
-      });
 
       if (!matchpw) {
         res.status(500).json("wrong password");
       } else {
-      
+        //generate token
+        const token = await user.generateAuthtoken();
+        // console.log(token)
+
+        res.cookie("eccomerce", token, {
+          expires: new Date(Date.now() + 2589000),
+          httpOnly: true,
+          //   secure: true, // Set to true if served over HTTPS
+          //   sameSite: "strict",
+        });
+
         res.status(200).json(user);
       }
     } else {
@@ -168,6 +166,18 @@ router.get("/cartdetails", authenticate, async (req, res) => {
   }
 });
 
+//get user is login or not
+router.get("/validuser", authenticate, async(req,res)=>{
+  try {
+    const validuserone = await Users.findOne({_id: req.userid});
+    res.status(200).json(validuserone)
+    // console.log(validuserone)
+  } catch (error) {
+    res.status(501).json(error.message);
+    console.log(error.message)
+  }
+})
+
 //remove data from cart
 
 router.delete("/remove/:id", authenticate, async (req, res) => {
@@ -202,5 +212,7 @@ router.get("/logout", authenticate, async (req, res) => {
     res.status(500).json(error.message);
   }
 });
+
+
 
 module.exports = router;

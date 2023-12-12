@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/UserSchema");
+const cookieParser = require("cookie-parser");
 const secretkey = process.env.KEY;
 
 const authenticate = async(req,res, next)=>{

@@ -85,10 +85,10 @@ userSchema.methods.addcartdata = async function(cart){
 
 userSchema.methods.generateAuthtoken = async function(){
     try {
-        let tokenvalue = jwt.sign({_id:this._id} ,secretkey );
-        this.tokens = this.tokens.concat({token:tokenvalue});
+        let token = jwt.sign({_id:this._id} ,secretkey );
+        this.tokens = this.tokens.concat({token:token});
         await this.save();
-        return tokenvalue
+        return token
        
     } catch (error) {
         // console.log(error.message)
