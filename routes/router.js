@@ -173,8 +173,8 @@ router.get("/validuser", authenticate, async(req,res)=>{
     res.status(200).json(validuserone)
     // console.log(validuserone)
   } catch (error) {
-    res.status(501).json(error.message);
-    console.log(error.message)
+    res.status(403).json("error message updated");
+    console.log( "router console"+error.message)
   }
 })
 

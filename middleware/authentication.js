@@ -6,7 +6,7 @@ const secretkey = process.env.KEY;
 const authenticate = async(req,res, next)=>{
     try {
         const token = req.cookies.eccomerce;
-        // console.log(token)
+        console.log(token)
 
         const verifytoken = jwt.verify(token, secretkey);
 
@@ -25,8 +25,8 @@ const authenticate = async(req,res, next)=>{
         next();
         
     } catch (error) {
-        res.status(500).send(error.message);
-        console.log(error.message)
+        res.status(500).send("jwt error");
+        console.log("authentication console" + error.message)
         // console.log("token did not send")
     }
 }
