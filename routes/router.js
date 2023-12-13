@@ -4,6 +4,8 @@ const Users = require("../model/UserSchema");
 const router = new express.Router();
 const bcrypt = require("bcryptjs");
 const authenticate = require("../middleware/authentication");
+const jwt = require("jsonwebtoken");
+const secretkey = process.env.KEY;
 
 //Get ProductsData API
 router.get("/getproducts", async (req, res) => {
@@ -107,6 +109,20 @@ router.post("/login", async (req, res) => {
     // console.log(error.message)
   }
 });
+
+router.get("/tokenval", async(req,res)=>{
+  try {
+    const tokenv = req.cookies.eccomerce ;
+    
+    const verifytoken = jwt.verify(tokenv, secretkey);
+    const rootUser = await Users.findOne({_id:verifytoken._id, "tokens.token":tokenv});
+    res.status(200).json("rootuser "+ rootUser._id);
+    // console.log(rootUser._id)
+  } catch (error) {
+    res.status(500).json(error.message);
+    // console.log( "tokenval console"+error.message)
+  }
+})
 
 //Delete all user Data in database
 router.delete("/deleteall", async (req, res) => {
