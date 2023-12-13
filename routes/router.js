@@ -113,10 +113,11 @@ router.post("/login", async (req, res) => {
 router.get("/tokenval", async(req,res)=>{
   try {
     const tokenv = req.cookies.eccomerce ;
+    res.status(200).json("tokenval "+ tokenv);
     
-    const verifytoken = jwt.verify(tokenv, secretkey);
-    const rootUser = await Users.findOne({_id:verifytoken._id, "tokens.token":tokenv});
-    res.status(200).json("rootuser "+ rootUser._id);
+    // const verifytoken = jwt.verify(tokenv, secretkey);
+    // const rootUser = await Users.findOne({_id:verifytoken._id, "tokens.token":tokenv});
+    // res.status(200).json("rootuser "+ rootUser._id);
     // console.log(rootUser._id)
   } catch (error) {
     res.status(500).json(error.message);
