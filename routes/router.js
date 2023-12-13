@@ -167,7 +167,7 @@ router.get("/cartdetails", authenticate, async (req, res) => {
 });
 
 //get user is login or not
-router.get("/validuser", async(req,res)=>{
+router.get("/validuser", authenticate, async(req,res)=>{
   try {
     const validuserone = await Users.findOne({_id: req.userid});
     res.status(200).json(validuserone)
