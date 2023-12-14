@@ -13,7 +13,8 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(express.json());
-app.use(cors({credentials: true, origin: 'http://localhost:3000' || "https://657ae25c9d28af009a55b243--jazzy-sorbet-2b5d5c.netlify.app/signin"}));
+// app.use(cors({credentials: true}));
+app.use(cors({credentials: true, origin: 'http://localhost:3000' || "https://657ae25c9d28af009a55b243--jazzy-sorbet-2b5d5c.netlify.app"}));
 app.use(cookieParser())
 
 
