@@ -95,8 +95,12 @@ router.post("/login", async (req, res) => {
         res.cookie("eccomerce", token, {
           expires: new Date(Date.now() + 2589000),
           httpOnly: true,
+          sameSite: "lax",
+          secure: true,
           //   secure: true, // Set to true if served over HTTPS
           //   sameSite: "strict",
+          secure:true,
+       sameSite:'none',
         });
 
         res.status(200).json(user);
