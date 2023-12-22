@@ -5,7 +5,6 @@ const router = new express.Router();
 const bcrypt = require("bcryptjs");
 const authenticate = require("../middleware/authentication");
 
-
 //Get ProductsData API
 router.get("/getproducts", async (req, res) => {
   try {
@@ -98,8 +97,8 @@ router.post("/login", async (req, res) => {
           secure: true,
           //   secure: true, // Set to true if served over HTTPS
           //   sameSite: "strict",
-          secure:true,
-       sameSite:'none',
+          secure: true,
+          sameSite: "none",
         });
 
         res.status(200).json(user);
@@ -112,8 +111,6 @@ router.post("/login", async (req, res) => {
     // console.log(error.message)
   }
 });
-
-
 
 //Delete all user Data in database
 router.delete("/deleteall", async (req, res) => {
@@ -174,24 +171,24 @@ router.get("/cartdetails", authenticate, async (req, res) => {
 });
 
 //get user is login or not
-router.get("/validuser", authenticate, async(req,res)=>{
+router.get("/validuser", authenticate, async (req, res) => {
   try {
-    const validuserone = await Users.findOne({_id: req.userid});
-    res.status(200).json(validuserone)
+    const validuserone = await Users.findOne({ _id: req.userid });
+    res.status(200).json(validuserone);
     // console.log(validuserone)
   } catch (error) {
     res.status(403).json("error message updated");
-    console.log( "router console"+error.message)
+    console.log("router console" + error.message);
   }
-})
+});
 
 //remove data from cart
 
-router.delete("/remove/:id", authenticate, async (req, res) => {
+router.get("/remove/:id", authenticate, async (req, res) => {
   const { id } = req.params;
   try {
     req.user.carts = await req.user.carts.filter((thisproduct) => {
-      return thisproduct.id != id;
+      return thisproduct._id != id;
     });
     req.user.save();
     res.status(200).json(req.user);
@@ -219,7 +216,5 @@ router.get("/logout", authenticate, async (req, res) => {
     res.status(500).json(error.message);
   }
 });
-
-
 
 module.exports = router;
